@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+<%# Beers Count: <%= @brewery.beers.count %>
+<%= render @brewery %>
+<%# This is the _a
+<%#= @brewery.beers.to_a %>
+
+
+<div>
+  <%= link_to "Edit this brewery", edit_brewery_path(@brewery) %> |
+  <%= link_to "Back to breweries", breweries_path %>
+
+  <%= button_to "Destroy this brewery", @brewery, method: :delete %>
+</div>
