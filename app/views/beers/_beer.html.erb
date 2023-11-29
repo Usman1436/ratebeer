@@ -14,4 +14,8 @@
     <%= beer.brewery_id %>
   </p>
 
+  <p>
+    Beer has <%= beer.ratings.count %> <%= 'rating'.pluralize(beer.ratings.count) %>, at an average of <%= beer.ratings.map(&:score).reduce(0, :+).to_f / beer.ratings.count %>.
+  </p>
+
 </div>

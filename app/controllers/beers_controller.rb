@@ -1,5 +1,6 @@
 class BeersController < ApplicationController
-  before_action :set_beer, only: %i[ show edit update destroy ]
+  before_action :set_beer, only: %i[show edit update destroy]
+  before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
 
   # GET /beers or /beers.json
   def index
@@ -8,15 +9,22 @@ class BeersController < ApplicationController
 
   # GET /beers/1 or /beers/1.json
   def show
+    # redirect_to @beer
   end
 
   # GET /beers/new
   def new
     @beer = Beer.new
+    set_breweries_and_styles_for_template
+    # @breweries = Brewery.all
+    # @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Low alcohol"]
   end
 
   # GET /beers/1/edit
   def edit
+    set_breweries_and_styles_for_template
+    # @breweries = Brewery.all
+    # @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
   end
 
   # POST /beers or /beers.json
@@ -25,10 +33,13 @@ class BeersController < ApplicationController
 
     respond_to do |format|
       if @beer.save
-        format.html { redirect_to beer_url(@beer), notice: "Beer was successfully created." }
-        format.json { render :show, status: :created, location: @beer }
+        format.html { redirect_to beers_path, notice: 'Beer was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @beer }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        @breweries = Brewery.all
+        @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter"]
+
+        format.html { render action: 'new' }
         format.json { render json: @beer.errors, status: :unprocessable_entity }
       end
     end
@@ -58,13 +69,19 @@ class BeersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_beer
-      @beer = Beer.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def beer_params
-      params.require(:beer).permit(:name, :style, :brewery_id)
-    end
+  def set_breweries_and_styles_for_template
+    @breweries = Brewery.all
+    @styles = ["Weizen", "Lager", "Pale ale", "IPA", "Porter", "Lowalcohol"]
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_beer
+    @beer = Beer.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def beer_params
+    params.require(:beer).permit(:name, :style, :brewery_id)
+  end
 end

@@ -11,6 +11,27 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <p><%= current_user.username %> signed in</p>
+    <% end %>
+    <div class="navibar">
+      <%= link_to 'Breweries', breweries_path %>
+      <%= link_to 'Beers', beers_path %>
+      <%= link_to 'Ratings', ratings_path %>
+      <%= link_to 'Join Club', new_membership_path %>
+    </div>
+    <% if current_user %>
+      <%= link_to "Log out", session_path,
+        data: {
+        "turbo-method": :delete
+        } 
+      %>
+      <%= link_to 'User profile', user_path(current_user.id) %>
+      <%= link_to 'Rate new beer', new_rating_path %>
+      <%# <%= link_to 'SignOut', session_path %>
+    <% else %>
+      <%= link_to 'SignIn', signin_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

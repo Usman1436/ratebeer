@@ -1,0 +1,30 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>Username:</strong>
+    <%= user.username %>
+  </p>
+
+  <p>
+    He has <%= @total_ratings %> ratings, average rating is <%= @average_ratings %>
+  </p>
+
+  <p>
+    <strong>Member of:</strong>
+    <ul>
+      <% user.beer_clubs.each do |beer_club| %>
+        <li> <%= beer_club.name %> </li>
+      <% end %>
+    </ul>
+  </p>
+  
+
+  <% if @ratings %>
+    <strong>Ratings:</strong>
+    <ul>
+      <% @ratings.each do |rating| %>
+        <li> <%= rating.beer.name %> - Rating: <%= rating.score %> <%= button_to 'delete', rating_path(rating.id), method: :delete , form: { data: { turbo_confirm: "Are you sure you want delete?"}}%></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+</div>

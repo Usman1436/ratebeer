@@ -16,15 +16,26 @@
     <%= form.text_field :name %>
   </div>
 
+  <%# <div> %>
+    <%#= form.label :style, style: "display: block" %>
+    <%#= form.text_field :style %>
+  <%# </div> %>
+
   <div>
     <%= form.label :style, style: "display: block" %>
-    <%= form.text_field :style %>
+    <%= form.select :style, options_for_select(@styles.map { |style| [style, style] }) %>
   </div>
+
 
   <div>
     <%= form.label :brewery_id, style: "display: block" %>
-    <%= form.number_field :brewery_id %>
+    <%= form.select :brewery_id, options_for_select(@breweries.map { |brewery| [brewery.name, brewery.id] }) %>
   </div>
+
+  <%# <div> %>
+    <%#= form.label :brewery_id, style: "display: block" %>
+    <%#= form.number_field :brewery_id %>
+  <%# </div> %>
 
   <div>
     <%= form.submit %>

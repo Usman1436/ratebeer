@@ -19,8 +19,14 @@ group :production do
    gem 'pg'
 end
 
+group :development, :test do
+  gem 'pry-byebug'
+end
+
+gem 'bcrypt', '~> 3.1.7'
+
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 4.3.6"
+gem "puma", "~> 5.0.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -71,9 +77,14 @@ group :development do
   # gem "spring"
 end
 
+gem 'simplecov', require: false
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 6.0.0'
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'launchy'
 end
